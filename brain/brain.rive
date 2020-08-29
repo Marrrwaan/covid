@@ -1,0 +1,52 @@
+! version= 2.0
+> begin
++ request
+* <get met> == undefined => <set met=true>{topic=welcome}{ok}
+- {ok}
+< begin
+
+>  topic welcome
++ *
+- hi Do you want to make a covid-19 test? {topic=test}
+< topic
+
+> topic test
++ yes [*]
+- Do you have any of the following symptoms?
+ ^\n-Difficulty breathing or shortness of breath
+ ^\n-chest pain or pressure
+ ^\n-loss of speech or movement{topic=covid1}
++ no
+- Okay, stay safe <3
+< topic
+
+> topic test1
++ yes [*]
+- <set username=<star>><call>getUsername <star></call>
+< topic
+
+
+> topic covid1
++ yes [*]
+- Call 123 and you must go to the hospital.
++ no
+- Do you have any of the following symptoms?
+ ^\n-Fever
+ ^\n-dry cough
+ ^\n-tiredness{topic=covid2}
+< topic
+
+> topic covid2
++ yes [*]
+- Have you met a friend who has/had a corona virus the past 14 days.{topic=covid3}
++ no
+- Based on your answers you're completely fine <3
+
+< topic
+
+> topic covid3
++ yes [*]
+- Call 123 and you must go to the hospital.
++ no
+- You are fine, but you need to stay home until you feel good.
+< topic
